@@ -2,7 +2,6 @@ import EvokeUI from "../evoke-ui";
 
 export default class Login extends EvokeUI.Component {
   constructor(props) {
-    console.log(props)
     super(props);
     this.state = {
       message: props.message,

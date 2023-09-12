@@ -23,7 +23,7 @@ const createElement = (type, props = {}, ...children) => {
   // if type is a Class then
   // 1. create a instance of the Class
   // 2. call the render method on the Class instance
-  if (type.prototype && type.prototype.isEvokeUIClassComponent) {
+  if (type && type.prototype && type.prototype.isEvokeUIClassComponent) {
     const componentInstance = new type(props);
 
     // remember the current vNode instance
@@ -38,11 +38,6 @@ const createElement = (type, props = {}, ...children) => {
 
     return componentInstance.__vNode;
   }
-  // if type is a function then call it and return it's value
-  if (typeof (type) == 'function') {
-    return type(props);
-  }
-
   const key = getRandomKey();
   const vnode = {
     type, 
@@ -50,6 +45,12 @@ const createElement = (type, props = {}, ...children) => {
     children,
     key
   };
+  
+  // if type is a function then call it and return it's value
+  if (typeof (type) == 'function') {
+    const func = type(props);
+      return func;
+  }
 
   return vnode;
 };
@@ -83,6 +84,18 @@ class Component {
   render() { }
 }
 
+export function useState(initialValue) {
+  
+  var newVal = initialValue;
+  const setState = (val) => {
+     newVal = val
+     console.log("Invoked setState : " + val)
+    // Re-render the component to get a new virtual DOM
+  
+  };
+
+  return [newVal, setState];
+}
 // add a static property to differentiate between a class and a function
 Component.prototype.isEvokeUIClassComponent = true;
 

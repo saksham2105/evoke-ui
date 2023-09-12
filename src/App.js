@@ -2,7 +2,7 @@ import EvokeUI from './evoke-ui';
 import logo from './logo.png';
 import Login from './components/Login';
 import Component from './components/Component';
-
+import { Counter } from './components/Counter';
 // In your component:
 const Greeting = ({ name }) => <p>Welcome {name}!</p>;
 export default class App extends EvokeUI.Component {
@@ -66,6 +66,7 @@ export default class App extends EvokeUI.Component {
   <Greeting name={"App"}/>
   <Login message={this.state.name}/>
   <Component />
+  <Counter name={this.state.name}/>
   <input type="text" value={this.state.name} />
   <h1>Hello Moto</h1>
   </div>
