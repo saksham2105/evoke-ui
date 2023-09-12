@@ -13,6 +13,11 @@ export function Counter(props) {
    };
    return (
     <div>
+        {props.name == "Rajan" ? (
+        <p>Welcome back!</p>
+      ) : (
+        <p>Please log in to continue.</p>
+      )}
         <p>Name : {props.name}</p>
       <p>Count: {count.toString()}</p>
       <button onClick={increment}>Increment</button>
