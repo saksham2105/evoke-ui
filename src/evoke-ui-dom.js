@@ -28,6 +28,7 @@ function updateElement(newVNode) {
 }
 const render = (el, rootDomElement) => {
 
+
   if (typeof el === 'function') {
     el = el();
   }
