@@ -1,6 +1,6 @@
 import EvokeUI from './evoke-ui';
 import logo from './logo.png';
-import { Login } from './components/Login';
+import Login from './components/Login';
 
 // In your component:
 const Greeting = ({ name }) => <p>Welcome {name}!</p>;
@@ -37,15 +37,24 @@ export default class App extends EvokeUI.Component {
     });
   }
 
+
+
   render() {
-    const divStyle = {
-      backgroundColor: 'blue',
-      color: 'white',
-      padding: '10px',
-    };
     return (
       <div>
+        <header>
         <img src={logo}  />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn Evoke UI
+        </a>
+      </header>
         <br /><br /><br />
         <button onClick={this.incrementCount}>Increment</button>
         <button onClick={this.changeName}>Change Name</button>
@@ -54,7 +63,8 @@ export default class App extends EvokeUI.Component {
   <span>Span Count {this.state.count.toString()}</span>
   <p>Name : {this.state.name}</p>
   <Greeting name={"App"}/>
-  <Login />
+  <Login message={this.state.name}/>
+  <input type="text" value={this.state.name} />
   <h1>Hello Moto</h1>
   </div>
     )

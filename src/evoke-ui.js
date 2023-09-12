@@ -1,6 +1,16 @@
 // file: src/qnd-react.js
 import EvokeUIDom from "./evoke-ui-dom";
 
+const getRandomKey = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
 const createElement = (type, props = {}, ...children) => {
 
   children = children.flat();
@@ -33,10 +43,12 @@ const createElement = (type, props = {}, ...children) => {
     return type(props);
   }
 
+  const key = getRandomKey();
   const vnode = {
     type, 
     props, 
     children,
+    key
   };
 
   return vnode;
@@ -60,6 +72,7 @@ class Component {
   
     // Re-render the component to get a new virtual DOM
     const newVNode = this.render();
+    newVNode.key = this.__vNode.key
   
     // Compare the new virtual DOM with the old one and update the actual DOM
     EvokeUIDom.updateElement( newVNode);

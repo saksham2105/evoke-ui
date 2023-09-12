@@ -1,16 +1,37 @@
 let rootVNode;
+let entryPoint;
+
+function updateVirtualNode(vNode, key, updater) {
+  if (vNode.key === key) {
+    // Update the virtual node using the updater function
+    updater(vNode);
+  } else if (vNode.children && vNode.children.length > 0) {
+    // Recursively search and update child nodes
+    vNode.children.forEach(child => {
+      updateVirtualNode(child, key, updater);
+    });
+  }
+}
 
 // React.render(<App />, document.getElementById('root'));
 // el -> <App />
 // rootDomElement -> document.getElementById('root')
 function updateElement(newVNode) {
-  render(newVNode, rootVNode)
+  //Change properties of newVVode
+  updateVirtualNode(entryPoint, newVNode.key, (vNodeToUpdate) => {
+    vNodeToUpdate.type = newVNode.type;
+    vNodeToUpdate.children = newVNode.children
+    vNodeToUpdate.props = newVNode.props;
+  });
+  //Rerender whole UI
+  render(entryPoint, rootVNode);    
 }
 const render = (el, rootDomElement) => {
 
   if (typeof el === 'function') {
     el = el();
   }
+  entryPoint = el;
 
   if (rootVNode == null) {
     rootVNode = rootDomElement;
@@ -39,6 +60,9 @@ function createElementFromVNode(vnode) {
   }
 
   const element = document.createElement(vnode.type);
+  if (vnode.key) {
+     element.setAttribute("element-key", vnode.key);    
+  }
 
   // Set props (attributes) on the element
   if (vnode.props) {

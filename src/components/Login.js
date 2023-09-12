@@ -1,14 +1,33 @@
-import EvokeUI from '../evoke-ui';
+import EvokeUI from "../evoke-ui";
 
-const Greeting = ({ name }) => <p>Welcome {name}!</p>;
+export default class Login extends EvokeUI.Component {
+  constructor(props) {
+    console.log(props)
+    super(props);
+    this.state = {
+      message: props.message,
+    };
+    this.sonu = this.sonu.bind(this);
+  }
 
-const sonu = () => {
- console.log("Sonu invoked");
-};
+  sonu() {
+    this.setState({ message: "Ramesh" }, () => {
+      
+    });
+    console.log('Sonu invoked');
+  };
 
-export function Login() {
-    return <div>
-            <button onClick={sonu}>Invoke Sonu</button>
-          <Greeting name={"Login"}/>
-    </div>
+  componentDidMount() {
+    console.log('Component mounted');
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Login Flow</h3>
+        <h1>{this.state.message}</h1>
+        <button onClick={this.sonu}>Invoke Sonu</button>
+      </div>
+    );
+  }
 }
